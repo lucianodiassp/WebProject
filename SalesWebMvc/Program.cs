@@ -7,6 +7,8 @@ var connectionString = builder.Configuration.GetConnectionString("SalesWebMvcCon
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), builder => builder.MigrationsAssembly("SalesWebMvc")));
 
+//builder.Services.AddScoped<SeedingServices2>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -17,6 +19,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+
     app.UseHsts();
 }
 
@@ -30,5 +33,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+SeedingService.Seed(app);
 
 app.Run();
