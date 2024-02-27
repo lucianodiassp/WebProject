@@ -11,6 +11,12 @@ namespace SalesWebMvc.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<SalesWebMvcContext>();
                 context.Database.EnsureCreated();
+                if (context.Department.Any() ||
+                    context.Seller.Any() ||
+                    context.SalesRecord.Any())
+                {
+                    return; //DB has Seeded
+                }
 
                 Department d1 = new Department(1, "Computers");
                 Department d2 = new Department(2, "Electronics");
