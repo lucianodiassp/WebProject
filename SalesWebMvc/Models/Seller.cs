@@ -22,7 +22,7 @@ namespace SalesWebMvc.Models
 
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Salary { get; set; }
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
         public int DepartmentId { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
@@ -30,7 +30,7 @@ namespace SalesWebMvc.Models
         {
         }
 
-        public Seller(int id, string name, string email, DateTime birthDate, double salary, Department department)
+        public Seller(int id, string name, string email, DateTime birthDate, double salary, Department? department)
         {
             Id = id;
             Name = name;
