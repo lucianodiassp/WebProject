@@ -30,11 +30,18 @@ namespace SalesWebMvc.Services
 
         public async Task RemoveByIdAsync(int id)
         {
-            var seller = await _context.Seller.FindAsync(id);
-            if (seller == null) return;
+            try
+            {
+                var seller = await _context.Seller.FindAsync(id);
+                if (seller == null) return;
 
-            _context.Seller.Remove(seller);
-            await _context.SaveChangesAsync();
+                _context.Seller.Remove(seller);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
         }
 
         public async Task UpdateAsync(Seller seller)
